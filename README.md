@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<!-- <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
@@ -58,4 +58,93 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT). -->
+
+Pemesanan Tiket Bioskop Online
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+Siti Mariati
+D0223322
+
+
+
+
+
+
+
+Framework Web Based
+2025 
+Role dan Fitur-fiturnya
+1.	Admin:
+•	Login -> Dashboard Admin
+•	Kelola Film
+•	Kelola Jadwal
+•	Lihat semua pesanan
+
+2.	 Petugas:
+•	Login -> Halaman Validasi Tiket
+•	Bisa lihat pesanan yang masuk dan statusnya
+•	Tidak bisa mengubah data film atau jadwal
+
+3.	 Pelanggan:
+•	Login -> Halaman daftar film
+•	Lihat jadwal -> Pesan tiket
+•	Lihat riwayat pesanannya
+
+
+
+
+
+
+Tabel-tabel database beserta field dan tipe datanya
+
+Nama field	Tipe data	keterangan
+id	increment	Primary key,auto increment
+Nama	string	Nama pengguna
+Email	String(unique)	Email pengguna,harus unik
+Kata_sandi	string	password
+peran	enum	Nilai: ‘admin’ atau ‘pelanggan’
+1.	Tabel Pengguna
+2.	Tabel Film
+Nama field	Tipe data	keterangan
+Id	increments	       Primary key,auto increment
+judul	string	Judul film
+Deskripsi	string	Ringkasan cerita
+durasi	integer	Durasi film
+
+Nama field	Tipe data	keterangan
+Id	increments	       Primary key,auto increment
+film_id	integer	Relasi ke tabel film
+tanggal	date	Tanggal tayang
+jam	time	Jam tayang
+Harga	decimal	                    Harga tiket
+3.	Tabel pesanan
+
+Nama field	Tipe data	keterangan
+Id	increments	Primary key,auto increment
+pengguna_id	integer	Relasi ke tabel pengguna
+Jadwal_tayang_id	integer	Relasi ke tabel jadwal_tayag
+Jumlah_tiket	integer	Jumlah tiket yang di pesan
+Total_harga	decimal	Total harga sesuai tiket 
+Status	enum	Nilai: ‘pending’ atau ‘lunas’
+
+Jenis relasi dan tabel yang berelasi
+
+1.	pengguna- pesanan: one to many
+2.	film – jadwal_tayangan : one to many
+3.	Jadwal_tayang - pesanan: one to many
+
+
