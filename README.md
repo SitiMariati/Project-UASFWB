@@ -59,16 +59,8 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT). -->
-
 Pemesanan Tiket Bioskop Online
 
-
-
-
-
-
-
- 
 
 
 
@@ -110,41 +102,42 @@ Role dan Fitur-fiturnya
 
 
 Tabel-tabel database beserta field dan tipe datanya
-
-Nama field	Tipe data	keterangan
-id	increment	Primary key,auto increment
-Nama	string	Nama pengguna
-Email	String(unique)	Email pengguna,harus unik
-Kata_sandi	string	password
-peran	enum	Nilai: ‘admin’ atau ‘pelanggan’
-1.	Tabel Pengguna
+1. Tabel pengguna
+              Nama_field	         Tipe data	                  keterangan
+                  id  	           increment	           Primary key,auto increment
+                Nama	            string	                      Nama pengguna
+                Email	          String(unique)	         Email pengguna,harus unik
+              Kata_sandi	        string	                          password
+                peran	             enum	                 Nilai: ‘admin’ atau ‘pelanggan’
 2.	Tabel Film
-Nama field	Tipe data	keterangan
-Id	increments	       Primary key,auto increment
-judul	string	Judul film
-Deskripsi	string	Ringkasan cerita
-durasi	integer	Durasi film
+            Nama field	      Tipe data            	keterangan
+                 Id	          increments	       Primary key,auto increment
+                judul	        string	            Judul film
+             Deskripsi	       string              Ringkasan cerita
+               durasi	       integer	            Durasi film
 
-Nama field	Tipe data	keterangan
-Id	increments	       Primary key,auto increment
-film_id	integer	Relasi ke tabel film
-tanggal	date	Tanggal tayang
-jam	time	Jam tayang
-Harga	decimal	                    Harga tiket
-3.	Tabel pesanan
+3. Tabel Jadwal_penayangan
+            Nama field      	Tipe data	       keterangan
+                Id	             increments	       Primary key,auto increment
+              film_id	          integer	       Relasi ke tabel film
+              tanggal	           date	           Tanggal tayang
+             jam	               time         	Jam tayang
+              Harga	             decimal	        Harga tiket
+4.	Tabel pesanan
 
-Nama field	Tipe data	keterangan
-Id	increments	Primary key,auto increment
-pengguna_id	integer	Relasi ke tabel pengguna
-Jadwal_tayang_id	integer	Relasi ke tabel jadwal_tayag
-Jumlah_tiket	integer	Jumlah tiket yang di pesan
-Total_harga	decimal	Total harga sesuai tiket 
-Status	enum	Nilai: ‘pending’ atau ‘lunas’
+             Nama field     	Tipe data	         keterangan
+                 Id	            increments	      Primary key,auto increment
+              pengguna_id	     integer	       Relasi ke tabel pengguna
+             Jadwal_tayang_id   integer            Relasi ke tabel jadwal_tayag
+             Jumlah_tiket	     integer	        Jumlah tiket yang di pesan
+              Total_harga	      decimal	         Total harga sesuai tiket 
+               Status	            enum	          Nilai: ‘pending’ atau ‘lunas’
 
 Jenis relasi dan tabel yang berelasi
 
 1.	pengguna- pesanan: one to many
 2.	film – jadwal_tayangan : one to many
 3.	Jadwal_tayang - pesanan: one to many
+
 
 
