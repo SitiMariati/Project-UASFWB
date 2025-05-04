@@ -125,13 +125,13 @@ Tabel-tabel database beserta field dan tipe datanya
             Harga	             decimal	       Harga tiket
 4.	Tabel pesanan
 
-             Nama field     	Tipe data	         keterangan
-             Id	                 increments	          Primary key,auto increment
-             pengguna_id	     integer	          Relasi ke tabel pengguna
-             Jadwal_tayang_id    integer              Relasi ke tabel jadwal_tayag
-             Jumlah_tiket	     integer	          Jumlah tiket yang di pesan
-             Total_harga	     decimal	          Total harga sesuai tiket 
-             Status	             enum	              Nilai: ‘pending’ atau ‘lunas’
+         Nama field     	Tipe data	         keterangan
+         Id	                 increments	          Primary key,auto increment
+         pengguna_id	     integer	          Relasi ke tabel pengguna
+         Jadwal_tayang_id    integer              Relasi ke tabel jadwal_tayag
+         Jumlah_tiket	     integer	          Jumlah tiket yang di pesan
+         Total_harga	     decimal	          Total harga sesuai tiket 
+         Status	             enum	              Nilai: ‘pending’ atau ‘lunas’
 
 Jenis relasi dan tabel yang berelasi
 
