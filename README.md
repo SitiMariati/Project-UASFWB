@@ -112,8 +112,8 @@ _D0223322_
 |   Nama Field  |   Tipe Data   |      Keterangan        |
 |---------------|---------------|------------------------|
 | id            | bigIncrements | Primary key            |
-| film_id       | foreignId     | FK ke tabel pengguna   |
-| waktu_tayang  | string        | Alamat pengguna        |
+| film_id       | foreignId     | FK ke tabel  film      |
+| waktu_tayang  | string        | Waktu penayangan       |
 | timestamps    | timestamps    | Created_at & Updated_at|
 
 ---
@@ -123,8 +123,8 @@ _D0223322_
 |  Nama Field      |   Tipe Data   |      Keterangan         |
 |------------------|---------------|-------------------------|
 | id               | bigIncrements | Primary key             |
-| user_id          | string        | Judul film              |
-| Jadwal_tayang_id | string        | Genre film              |
+| user_id          | foreigndID    | FK ke tabel user        |
+| Jadwal_tayang_id | foreigndID    | FK ke tabel jadwal_tayng|
 | Jumlah_tiket     | integer       | Durasi film             |
 | timestamps       | timestamps    | Created_at & Updated_at |
 
@@ -135,9 +135,9 @@ _D0223322_
 |   Nama Field     | Tipe Data     |       Keterangan        |
 |------------------|---------------|-------------------------|
 | id               | bigIncrements | Primary key             |
-| pesanan_id       | foreignId     | FK ke tabel film        |
-| metode_pembayaran| date          | Tanggal tayang          |
-| jumlah_bayar     | time          | Jam tayang              |
+| pesanan_id       | foreignId     | FK ke tabel pesanan     |
+| metode_pembayaran| string        | Tanggal tayang          |
+| jumlah_bayar     | integer       | jumlah harga            |
 | timestamps       | timestamps    | Created_at & Updated_at |
 
 ---
