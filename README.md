@@ -81,105 +81,73 @@ _D0223322_
 
 ### 🛡️ Admin
 - Mengelola data film
-- Mengatur jadwal tayang film
-- Mengelola pengguna dan petugas
+-  jadwal tayang film
+-  dan pemesanan
 
-### 📋 Petugas
-- Melihat dan mencetak data pesanan tiket
-- Membantu proses pembayaran dan validasi tiket
+### 📋 Petugas bioskop
+- Mengelola pemesanan, dan melakukan konfirmasi pemesanan
+
 
 ### 👥 Pengguna
-- Melihat daftar film dan jadwal tayang
 - Melakukan pemesanan tiket
-- Melihat riwayat pesanan dan statusnya
 
 ---
 
 ## 🗃️ Tabel-tabel Database
 
-### Tabel `pengguna`
+### Tabel `film`
 
-| Nama Field |   Tipe Data   |              Keterangan          |
-|------------|---------------|----------------------------------|
-| id         | bigIncrements | Primary key                      |
-| nama       | string        | Nama lengkap pengguna            |
-| email      | string        | Email unik untuk login           |
-| password   | string        | Kata sandi terenkripsi           |
-| role       | enum          | ['admin', 'petugas', 'pengguna'] |
+| Nama Field |   Tipe Data   |   Keterangan           |
+|------------|---------------|------ -----------------|
+| id         | bigIncrements | Primary key            |
+| judul      | string        | Judul film             |
+| deskripsi  | string        | Deskripsi Film         |
+| genre      | string        | Genre Film             |
+| timestamps | timestamps    | Created_at & Updated_at|
 
 ---
 
-### Tabel `user_profiles`
+### Tabel `jadwal tayang`
 
 |   Nama Field  |   Tipe Data   |      Keterangan        |
 |---------------|---------------|------------------------|
 | id            | bigIncrements | Primary key            |
-| pengguna_id   | foreignId     | FK ke tabel pengguna   |
-| alamat        | string        | Alamat pengguna        |
-| no_hp         | string        | Nomor HP               |
-| tanggal_lahir | date          | Tanggal lahir          |
-| timestamps    | timestamps    | Created_at /Updated_at |
+| film_id       | foreignId     | FK ke tabel pengguna   |
+| waktu_tayang  | string        | Alamat pengguna        |
+| timestamps    | timestamps    | Created_at & Updated_at|
 
 ---
 
-### Tabel `film`
+### Tabel `pemesanan`
 
-| Nama Field |   Tipe Data   |      Keterangan         |
-|------------|---------------|-------------------------|
-| id         | bigIncrements | Primary key             |
-| judul      | string        | Judul film              |
-| genre      | string        | Genre film              |
-| durasi     | integer       | Durasi film             |
-| deskripsi  | text          | Deskripsi  film         |
-| timestamps | timestamps    | Created_at & Updated_at |
-
----
-
-### Tabel `jadwal_tayang`
-
-| Nama Field | Tipe Data     |       Keterangan        |
-|------------|---------------|-------------------------|
-| id         | bigIncrements | Primary key             |
-| film_id    | foreignId     | FK ke tabel film        |
-| tanggal    | date          | Tanggal tayang          |
-| jam_tayang | time          | Jam tayang              |
-| harga      | integer       | Harga tiket             |
-| timestamps | timestamps    | Created_at & Updated_at |
+|  Nama Field      |   Tipe Data   |      Keterangan         |
+|------------------|---------------|-------------------------|
+| id               | bigIncrements | Primary key             |
+| user_id          | string        | Judul film              |
+| Jadwal_tayang_id | string        | Genre film              |
+| Jumlah_tiket     | integer       | Durasi film             |
+| timestamps       | timestamps    | Created_at & Updated_at |
 
 ---
 
-### Tabel `pesanan`
+### Tabel `pembayaran`
 
-| Nama Field       | Tipe Data     |              Keterangan               |
-|------------      |-----------    |---------------------------------------|
-| id               | bigIncrements | Primary key                           |
-| user_profiles_id | foreignId     | FK ke tabel user_profiles             |
-| jadwal_tayang_id | foreignId     | FK ke tabel jadwal_tayang             |
-| jumlah_tiket     | integer       | Jumlah tiket dipesan                  |
-| total_harga      | integer       | Total harga yang harus dibayar        |
-| status           | enum          | ['menunggu', 'dibayar', 'dibatalkan'] |
-| timestamps       | timestamps    | Created_at & Updated_at               |
+|   Nama Field     | Tipe Data     |       Keterangan        |
+|------------------|---------------|-------------------------|
+| id               | bigIncrements | Primary key             |
+| pesanan_id       | foreignId     | FK ke tabel film        |
+| metode_pembayaran| date          | Tanggal tayang          |
+| jumlah_bayar     | time          | Jam tayang              |
+| timestamps       | timestamps    | Created_at & Updated_at |
 
 ---
 
-### Tabel Pivot `film_pengguna` (Many to Many)
-
-| Nama Field  |   Tipe Data   |      Keterangan         |
-|-------------|---------------|-------------------------|
-| id          | bigIncrements | Primary key             |
-| pengguna_id | foreignId     | FK ke tabel pengguna    |
-| film_id     | foreignId     | FK ke tabel film        |
-| timestamps  | timestamps    | Created_at & Updated_at |
-
----
 
 ## 🔗 Relasi Antar Tabel
 
-- `pengguna` ↔ `user_profiles` = One to One
-- `film` ↔ `jadwal_tayang` = One to Many
-- `user_profiles` ↔ `pesanan` = One to Many
-- `jadwal_tayang` ↔ `pesanan` = One to Many
-- `pengguna` ↔ `film` = Many to Many (melalui `film_pengguna`)
+- `pemesanan` ↔ `pembayaran` = One to One (satu pemesanan memiliki satu pembayaran)
+- `film` ↔ `jadwal_tayang` = One to Many (satu film dapat memiliki banyak jadwal tayang)
+- `pemesanan` ↔ `film` = Many to Many (satu pemesanan dapat memiliki banyak film,dan satu film dapat memiliki banyak pemesanan)
 
 ---
 
@@ -190,6 +158,5 @@ _D0223322_
 Sistem ini dirancang untuk:
 - Memudahkan proses pembelian tiket bioskop secara online
 - Memberikan pengalaman pengguna yang efisien tanpa harus datang langsung ke loket
-- Memberikan kontrol data film dan jadwal tayang kepada admin dan petugas
 
 ---
