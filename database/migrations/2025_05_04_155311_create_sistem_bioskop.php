@@ -7,75 +7,47 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // Tabel pengguna
-        Schema::create('pengguna', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->enum('role', ['admin', 'petugas', 'pengguna'])->default('pengguna');
-           
-         }); 
-          // Tabel user_profiles   
-        Schema::create('user_profiles', function (Blueprint $table) {
-            $table->id();
-           $table->foreignId('pengguna_id')->constrained('pengguna')->onDelete('cascade');
-            $table->string('alamat');
-            $table->string('no_hp');
-            $table->date('tanggal_lahir');
-            $table->timestamps();
-
-        });
-
-        // Tabel film
+        // Tabel Film
         Schema::create('film', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->string('genre');
-            $table->integer('durasi');
             $table->text('deskripsi');
+            $table->string('genre');
             $table->timestamps();
-
         });
 
-        // Tabel jadwal tayang
+        // Tabel Jadwal Tayang
         Schema::create('jadwal_tayang', function (Blueprint $table) {
             $table->id();
             $table->foreignId('film_id')->constrained('film')->onDelete('cascade');
-            $table->date('tanggal');
-            $table->time('jam_tayang');
-            $table->integer('harga');
+            $table->dateTime('waktu_tayang');
             $table->timestamps();
-
         });
 
-        // Tabel pesanan
+        // Tabel Pemesanan
         Schema::create('pesanan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_profiles_id')->constrained('pengguna')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('jadwal_tayang_id')->constrained('jadwal_tayang')->onDelete('cascade');
             $table->integer('jumlah_tiket');
-            $table->integer('total_harga');
-            $table->enum('status', ['menunggu', 'dibayar', 'dibatalkan'])->default('menunggu');
             $table->timestamps();
         });
-        // Tabel pivot pengguna <-> film (many to many)
-Schema::create('film_pengguna', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('pengguna_id')->constrained('pengguna')->onDelete('cascade');
-    $table->foreignId('film_id')->constrained('film')->onDelete('cascade');
-    $table->timestamps();
-});
 
+        // Tabel Pembayaran
+        Schema::create('pembayaran', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('pesanan_id')->constrained('pesanan')->onDelete('cascade');
+            $table->string('metode_pembayaran');
+            $table->integer('jumlah_bayar');
+            $table->timestamps();
+        });
     }
 
-    public function down(): void
+    public function down()
     {
+        Schema::dropIfExists('pembayaran');
         Schema::dropIfExists('pesanan');
-        Schema::dropIfExists('user_profiles');
         Schema::dropIfExists('jadwal_tayang');
         Schema::dropIfExists('film');
-        Schema::dropIfExists('pengguna');
-        Schema::dropIfExists('film_pengguna');
     }
 };

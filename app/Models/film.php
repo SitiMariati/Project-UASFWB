@@ -1,19 +1,22 @@
-<?php
+<?php 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\eloquent\Models;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Film extends Model
 {
-    protected $fillable = ['judul', 'genre', 'durasi', 'deskripsi'];
+    use HasFactory;
+
+    protected $fillable = [
+        'judul',
+        'deskripsi',
+        'genre',
+    ];
 
     public function jadwalTayang()
     {
-        return $this->hasMany(JadwalTayang::class, 'film_id');
-    }
-
-    public function pengguna()
-    {
-        return $this->belongsToMany(Pengguna::class, 'film_pengguna');
+        return $this->hasMany(JadwalTayang::class);
     }
 }
