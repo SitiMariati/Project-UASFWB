@@ -98,7 +98,7 @@ _D0223322_
 ### Tabel `film`
 
 | Nama Field    |   Tipe Data   |   Keterangan           |
-|---------------|---------------|------ -----------------|
+|---------------|---------------|------------------------|
 | id            | bigIncrements | Primary key            |
 | judul         | string        | Judul film             |
 | deskripsi     | string        | Deskripsi Film         |
@@ -107,6 +107,16 @@ _D0223322_
 
 ---
 
+### Tabel `user`
+
+|   Nama Field  |   Tipe Data   |      Keterangan        |
+|---------------|---------------|------------------------|
+| id            | bigIncrements | Primary key            |
+| nama          | string        | nama pengguna          |
+| email         | string        | email pengguna         |
+| password      | string        | password/ kata sandi   |
+| role          | string        | hak akses pengguna     |
+| timestamps    | timestamps    | Created_at & Updated_at|
 ### Tabel `jadwal tayang`
 
 |   Nama Field  |   Tipe Data   |      Keterangan        |
@@ -147,6 +157,7 @@ _D0223322_
 
 - `pemesanan` ↔ `pembayaran` = One to One (satu pemesanan memiliki satu pembayaran)
 - `film` ↔ `jadwal_tayang` = One to Many (satu film dapat memiliki banyak jadwal tayang)
+- `user` ↔ `pemesanan`    = one to many (satu user bisa memiliki banyak pemsanan)
 - `pemesanan` ↔ `film` = Many to Many (satu pemesanan dapat memiliki banyak film,dan satu film dapat memiliki banyak pemesanan)
 
 ---

@@ -18,7 +18,7 @@ class JadwalTayang extends Model
         return $this->belongsTo(Film::class);
     }
 
-    public function pemesanan()
+    public function pesanan()
     {
         return $this->hasMany(Pemesanan::class);
     }
