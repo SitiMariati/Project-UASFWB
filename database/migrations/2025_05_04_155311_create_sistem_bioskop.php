@@ -7,6 +7,18 @@ return new class extends Migration
 {
     public function up(): void
     {
+       
+        //Tabel user
+         Schema::create('user', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama');
+            $table->string('email');
+            $table->string('password');
+            $table->string('role')->default('pengguna');
+             $table->rememberToken();
+            $table->timestamps();
+        });
+        
         // Tabel Film
         Schema::create('film', function (Blueprint $table) {
             $table->id();
