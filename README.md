@@ -97,13 +97,13 @@ _D0223322_
 
 ### Tabel `film`
 
-| Nama Field |   Tipe Data   |   Keterangan           |
-|------------|---------------|------ -----------------|
-| id         | bigIncrements | Primary key            |
-| judul      | string        | Judul film             |
-| deskripsi  | string        | Deskripsi Film         |
-| genre      | string        | Genre Film             |
-| timestamps | timestamps    | Created_at & Updated_at|
+| Nama Field    |   Tipe Data   |   Keterangan           |
+|---------------|---------------|------ -----------------|
+| id            | bigIncrements | Primary key            |
+| judul         | string        | Judul film             |
+| deskripsi     | string        | Deskripsi Film         |
+| genre         | string        | Genre Film             |
+| timestamps    | timestamps    | Created_at & Updated_at|
 
 ---
 
