@@ -59,89 +59,137 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT). -->
-Pemesanan Tiket Bioskop Online
 
+P<div align="center">
 
-
+# 🎬 Pembelian Tiket Bioskop Online
 <br>
 
-<img src="unsulbar.png" alt="LOGO UNSULBAR" width="100">
+<img src="LOGO UNSULBAR.jpg" alt="Logo Kampus" width="100">
 
 <br></br>
 
+_Siti Mariati_  
+_D0223322_
+
+<br>
+**Pembelian Tiket Bioskop Online** adalah aplikasi berbasis web untuk mempermudah pengguna dalam melihat jadwal film dan memesan tiket bioskop secara online. Aplikasi ini mendukung berbagai peran pengguna dengan fitur dan hak akses yang sesuai, serta memanfaatkan relasi antar tabel untuk pengelolaan data film, jadwal tayang, dan transaksi pemesanan.
+
+---
+
+## 🔐 Role dan Fitur-fiturnya
+
+### 🛡️ Admin
+- Mengelola data film
+- Mengatur jadwal tayang film
+- Mengelola pengguna dan petugas
+
+### 📋 Petugas
+- Melihat dan mencetak data pesanan tiket
+- Membantu proses pembayaran dan validasi tiket
+
+### 👥 Pengguna
+- Melihat daftar film dan jadwal tayang
+- Melakukan pemesanan tiket
+- Melihat riwayat pesanan dan statusnya
+
+---
+
+## 🗃️ Tabel-tabel Database
+
+### Tabel `pengguna`
+
+| Nama Field |   Tipe Data   |              Keterangan          |
+|------------|---------------|----------------------------------|
+| id         | bigIncrements | Primary key                      |
+| nama       | string        | Nama lengkap pengguna            |
+| email      | string        | Email unik untuk login           |
+| password   | string        | Kata sandi terenkripsi           |
+| role       | enum          | ['admin', 'petugas', 'pengguna'] |
+
+---
+
+### Tabel `user_profiles`
+
+|   Nama Field  |   Tipe Data   |      Keterangan        |
+|---------------|---------------|------------------------|
+| id            | bigIncrements | Primary key            |
+| pengguna_id   | foreignId     | FK ke tabel pengguna   |
+| alamat        | string        | Alamat pengguna        |
+| no_hp         | string        | Nomor HP               |
+| tanggal_lahir | date          | Tanggal lahir          |
+| timestamps    | timestamps    | Created_at /Updated_at |
+
+---
+
+### Tabel `film`
+
+| Nama Field |   Tipe Data   |      Keterangan         |
+|------------|---------------|-------------------------|
+| id         | bigIncrements | Primary key             |
+| judul      | string        | Judul film              |
+| genre      | string        | Genre film              |
+| durasi     | integer       | Durasi film             |
+| deskripsi  | text          | Deskripsi  film         |
+| timestamps | timestamps    | Created_at & Updated_at |
+
+---
+
+### Tabel `jadwal_tayang`
+
+| Nama Field | Tipe Data     |       Keterangan        |
+|------------|---------------|-------------------------|
+| id         | bigIncrements | Primary key             |
+| film_id    | foreignId     | FK ke tabel film        |
+| tanggal    | date          | Tanggal tayang          |
+| jam_tayang | time          | Jam tayang              |
+| harga      | integer       | Harga tiket             |
+| timestamps | timestamps    | Created_at & Updated_at |
+
+---
+
+### Tabel `pesanan`
+
+| Nama Field       | Tipe Data     |              Keterangan               |
+|------------      |-----------    |---------------------------------------|
+| id               | bigIncrements | Primary key                           |
+| user_profiles_id | foreignId     | FK ke tabel user_profiles             |
+| jadwal_tayang_id | foreignId     | FK ke tabel jadwal_tayang             |
+| jumlah_tiket     | integer       | Jumlah tiket dipesan                  |
+| total_harga      | integer       | Total harga yang harus dibayar        |
+| status           | enum          | ['menunggu', 'dibayar', 'dibatalkan'] |
+| timestamps       | timestamps    | Created_at & Updated_at               |
+
+---
+
+### Tabel Pivot `film_pengguna` (Many to Many)
+
+| Nama Field  |   Tipe Data   |      Keterangan         |
+|-------------|---------------|-------------------------|
+| id          | bigIncrements | Primary key             |
+| pengguna_id | foreignId     | FK ke tabel pengguna    |
+| film_id     | foreignId     | FK ke tabel film        |
+| timestamps  | timestamps    | Created_at & Updated_at |
+
+---
+
+## 🔗 Relasi Antar Tabel
+
+- `pengguna` ↔ `user_profiles` = One to One
+- `film` ↔ `jadwal_tayang` = One to Many
+- `user_profiles` ↔ `pesanan` = One to Many
+- `jadwal_tayang` ↔ `pesanan` = One to Many
+- `pengguna` ↔ `film` = Many to Many (melalui `film_pengguna`)
+
+---
 
 
 
-Siti Mariati
-D0223322
+## 🎯 Tujuan Sistem
 
+Sistem ini dirancang untuk:
+- Memudahkan proses pembelian tiket bioskop secara online
+- Memberikan pengalaman pengguna yang efisien tanpa harus datang langsung ke loket
+- Memberikan kontrol data film dan jadwal tayang kepada admin dan petugas
 
-
-
-
-
-
-Framework Web Based
-2025 
-Role dan Fitur-fiturnya
-1.	Admin:
-•	Login -> Dashboard Admin
-•	Kelola Film
-•	Kelola Jadwal
-•	Lihat semua pesanan
-
-2.	 Petugas:
-•	Login -> Halaman Validasi Tiket
-•	Bisa lihat pesanan yang masuk dan statusnya
-•	Tidak bisa mengubah data film atau jadwal
-
-3.	 Pelanggan:
-•	Login -> Halaman daftar film
-•	Lihat jadwal -> Pesan tiket
-•	Lihat riwayat pesanannya
-
-
-
-
-
-
-Tabel-tabel database beserta field dan tipe datanya
-1. Tabel pengguna
-              Nama_field	         Tipe data	                  keterangan
-              id  	                 increment	                  Primary key,auto increment
-              Nama	                 string	                      Nama pengguna
-              Email	                 String(unique)	              Email pengguna,harus unik
-              Kata_sandi	         string	                      password
-              peran	                 enum	                      Nilai: ‘admin’ atau ‘pelanggan’
-2.	Tabel Film
-            Nama field	      Tipe data            	keterangan
-             Id	               increments	         Primary key,auto increment
-             judul	           string	             Judul film
-             Deskripsi	       string                Ringkasan cerita
-             durasi	           integer	             Durasi film
-
-3. Tabel Jadwal_penayangan
-            Nama field      	Tipe data	       keterangan
-            Id	                 increments	       Primary key,auto increment
-            film_id	             integer	       Relasi ke tabel film
-            tanggal	             date	           Tanggal tayang
-            jam	                 time         	   Jam tayang
-            Harga	             decimal	       Harga tiket
-4.	Tabel pesanan
-
-         Nama field     	Tipe data	         keterangan
-         Id	                 increments	          Primary key,auto increment
-         pengguna_id	     integer	          Relasi ke tabel pengguna
-         Jadwal_tayang_id    integer              Relasi ke tabel jadwal_tayag
-         Jumlah_tiket	     integer	          Jumlah tiket yang di pesan
-         Total_harga	     decimal	          Total harga sesuai tiket 
-         Status	             enum	              Nilai: ‘pending’ atau ‘lunas’
-
-Jenis relasi dan tabel yang berelasi
-
-1.	pengguna- pesanan: one to many
-2.	film – jadwal_tayangan : one to many
-3.	Jadwal_tayang - pesanan: one to many
-
-
-
+---

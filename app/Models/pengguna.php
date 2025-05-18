@@ -1,25 +1,27 @@
 <?php
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class Pengguna extends Authenticatable
 {
-    use Notifiable;
-
     protected $table = 'pengguna';
 
-    protected $fillable = [
-        'nama', 'email', 'kata_sandi', 'peran',
-    ];
+    protected $fillable = ['nama', 'email', 'password', 'role'];
 
-    protected $hidden = [
-        'kata_sandi',
-    ];
+    public function userProfile()
+    {
+        return $this->hasOne(UserProfile::class, 'pengguna_id');
+    }
+
+    public function films()
+    {
+        return $this->belongsToMany(Film::class, 'film_pengguna');
+    }
 
     public function pesanan()
     {
-        return $this->hasMany(Pesanan::class);
+        return $this->hasManyThrough(Pesanan::class, UserProfile::class, 'pengguna_id', 'user_profiles_id');
     }
 }
